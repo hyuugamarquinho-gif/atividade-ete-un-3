@@ -10,7 +10,6 @@ public class App {
         boolean sair = false; 
  
         while (!sair) { 
-            // Menu mais amigável e leitura segura por linha
             System.out.println("=========================================");
             System.out.println("           PAINEL DE PRODUTOS            ");
             System.out.println("=========================================");
