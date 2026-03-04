@@ -2,7 +2,30 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class App {
+class Produto {
+  private String nome; 
+  private double preco; 
+ 
+  public Produto(String nome, double preco) { 
+      this.nome = nome; 
+      this.preco = preco; 
+  } 
+
+  public String getNome() {
+    return nome;
+  }
+
+  public double getpreco() {
+    return preco;
+  } 
+
+  public void exibirInformacoes() {
+  System.out.println("Nome: " + nome + " - " + "Preço: R$" + String.format("%.2f", preco));
+}
+
+}
+
+public class Main {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in); 
         Produto[] produtos = new Produto[100]; 
@@ -19,6 +42,7 @@ public class App {
             System.out.println("3) Sair");
             System.out.print("Escolha uma opção (1-3): ");
             String opcaoStr = sc.nextLine();
+            System.out.print("\n");
             int opcao = 0;
             try {
                 opcao = Integer.parseInt(opcaoStr.trim());
@@ -27,16 +51,15 @@ public class App {
                 continue;
             }
 
-            switch (opcao) { 
+            switch (opcao) {
                 case 1: 
-                    /* Escreva aqui o código para testar se a quantidade de produtos adicionadas é 
-                    maior que a capacidade do array de 100 posições */ 
-                    if (quantidadeProdutos <= 100) {
-                         // Escreva aqui o código de entrada para o nome do produto 
+                    if (quantidadeProdutos >= produtos.length) {
+                        System.out.println("Não é possível adcionar mais produtos\n");
+                        break;
+                    }
                         System.out.print("Informe o nome do produto: ");
                         String nome = sc.nextLine();
 
-                        // Escreva aqui o código de entrada para o preço do produto
                         System.out.print("Informe o preço do produto (use ponto): ");
                         try {
                             String precoStr = sc.nextLine();
@@ -50,17 +73,17 @@ public class App {
                         } catch (NumberFormatException e) {
                             System.out.println("Erro: Digite um número válido para o preço!");
                         }
-                        break; 
-
-                    } else {
-                        System.out.println("Não é possível adcionar mais produtos\n");
-                        break;
-                    }
+                        break;   
                                                                              
                 case 2: 
+                    if (quantidadeProdutos == 0) {
+                        System.out.println("Não há produtos a serem exibidos");
+                        break;
+                    }
+
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     System.out.println("=========================================");
-                    System.out.println("           MERCADO ETE LTDA           ");
+                    System.out.println("        SUPERMERCADO ETE LTDA            ");
                     System.out.println("       CNPJ: 00.000.000/0000-00          ");
                     System.out.println("-----------------------------------------");
                     System.out.println("Data: " + LocalDateTime.now().format(dtf));
@@ -79,10 +102,11 @@ public class App {
                     System.out.printf("%-30s R$%7.2f\n", "TOTAL", total);
                     System.out.println("=========================================");
                     System.out.println("Obrigado pela preferencia!");
+                    System.out.println("\n");
                     break;
 
                 case 3: 
-                    System.out.println("Saindo...");
+                    System.out.println("Encerrando o programa...\n");
                     sair = true; 
                     break; 
                 default: 
@@ -93,3 +117,5 @@ public class App {
         sc.close(); 
     }
 }
+
+
